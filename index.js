@@ -197,3 +197,5 @@ app.post('/user', async (req, res) => {
 
     res.end();
 });
+
+//hay mas app.put() y app.delete()
