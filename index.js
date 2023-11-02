@@ -169,6 +169,8 @@ app.post('/user', (req, res) => {
 });
 */
 
+/*
+//añadir un item al objeto users
 //modo promesa
 app.post('/user', async (req, res) => {
     try {
@@ -190,6 +192,31 @@ app.post('/user', async (req, res) => {
         const newInfo = jsonData;
 
         await fsPromises.writeFile(filePath, JSON.stringify(newInfo));
+        res.send(jsonData);
+    } catch (error) {
+        res.send({ error: err });
+    }
+
+    res.end();
+});
+*/
+
+
+//eliminar un item
+//modo promesa
+app.post('/user_delete/:id', async (req, res) => {
+    try {
+        const data = await fsPromises.readFile(filePath);
+        const jsonData = JSON.parse(data);
+        console.log('jsonData: ');
+        console.log(jsonData);
+
+        const newItem = req.body;
+
+        jsonData = jsonData.filter(v => v.userId !== newItem.userId); //devuelve un array
+        console.log('ahora jsonData: ', jsonData);
+
+        await fsPromises.writeFile(filePath, JSON.stringify(jsonData));
         res.send(jsonData);
     } catch (error) {
         res.send({ error: err });
